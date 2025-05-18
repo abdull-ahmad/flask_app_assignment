@@ -10,6 +10,7 @@ pipeline {
                     python3 -m venv $VENV
                     . $VENV/bin/activate
                     pip install --upgrade pip
+                    pip install -r requirements.txt pylint
                 '''
             }
         }
@@ -17,16 +18,7 @@ pipeline {
             steps {
                 sh '''
                     . $VENV/bin/activate
-                    pip install pylint
                     $VENV/bin/pylint app.py
-                '''
-            }
-        }
-        stage('Build') {
-            steps {
-                sh '''
-                    . $VENV/bin/activate
-                    pip install -r requirements.txt
                 '''
             }
         }
