@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Lint') {
             steps {
-                sh 'pip install pylint'
+                sh 'python3-pip install pylint'
                 sh 'pylint app.py'
             }
         }
