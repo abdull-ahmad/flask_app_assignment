@@ -1,33 +1,20 @@
 pipeline {
     agent any
-    environment {
-        VENV = 'venv'
-    }
     stages {
-        stage('Setup Python venv') {
-            steps {
-                sh '''
-                    python3 -m venv $VENV
-                    . $VENV/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt pylint
-                '''
-            }
-        }
         stage('Lint') {
             steps {
-                sh '''
-                    . $VENV/bin/activate
-                    $VENV/bin/pylint app.py
-                '''
+                sh 'pip install pylint'
+                sh 'pylint app.py'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Unit Test') {
             steps {
-                sh '''
-                    . $VENV/bin/activate
-                    $VENV/bin/pytest tests/test_unit.py
-                '''
+                sh 'pytest tests/test_unit.py'
             }
         }
         stage('Docker Build & Run') {
@@ -38,10 +25,7 @@ pipeline {
         }
         stage('Selenium Test') {
             steps {
-                sh '''
-                    . $VENV/bin/activate
-                    $VENV/bin/pytest tests/test_selenium.py
-                '''
+                sh 'pytest tests/test_selenium.py'
             }
         }
     }
