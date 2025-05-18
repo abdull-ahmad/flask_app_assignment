@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Lint') {
             steps {
-                sh 'python3-pip install pylint'
+                sh 'pip install pylint'
                 sh 'pylint app.py'
             }
         }
@@ -12,7 +12,7 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage('Unit Test') {
+        stage('Unit Test') {    
             steps {
                 sh 'pytest tests/test_unit.py'
             }
