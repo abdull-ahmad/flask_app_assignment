@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, session
 import sqlite3
+
+from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
